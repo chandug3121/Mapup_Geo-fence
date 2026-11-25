@@ -47,7 +47,7 @@ flowchart TB
 | Rate limiting | `go-chi/httprate` | Drop-in chi middleware, per-IP sliding window | Hand-rolled token bucket |
 | Migrations | Embedded SQL files (`embed.FS`), applied at startup in order | Zero extra tooling, works the same locally and in cloud | golang-migrate (extra binary) |
 | Logging | `log/slog` (stdlib) | Structured JSON logs, no dependency | zap, zerolog |
-| Frontend | Vite + React 18 + TypeScript | Fast dev server, typed API contracts | Next.js (SSR not needed for a dashboard) |
+| Frontend | Vite + React 19 + TypeScript | Fast dev server, typed API contracts | Next.js (SSR not needed for a dashboard) |
 | Map | `react-leaflet` + OpenStreetMap tiles + Geoman (draw) | Free, no API key or billing, `[lat, lng]` order matches the API | Mapbox / Google Maps (API keys + billing) |
 | Server state | TanStack Query | Built-in loading/error states, caching, invalidation on alerts | Redux / hand-rolled `useEffect` fetching |
 | Styling | Tailwind CSS | Fast, consistent design tokens | MUI (heavier, generic look) |
@@ -66,7 +66,6 @@ erDiagram
     VEHICLES  ||--o{ GEOFENCE_EVENTS : triggers
     GEOFENCES ||--o{ GEOFENCE_EVENTS : "entered/exited"
     GEOFENCE_EVENTS ||--o{ ALERT_NOTIFICATIONS : "fires"
-    ALERT_RULES ||--o{ ALERT_NOTIFICATIONS : "matched"
 
     GEOFENCES { text id PK  text name  text category  geometry boundary  text status  timestamptz created_at }
     VEHICLES { text id PK  text vehicle_number UK  text driver_name  text vehicle_type  text phone  text status }
@@ -74,7 +73,7 @@ erDiagram
     VEHICLE_GEOFENCE_STATE { text vehicle_id PK  text geofence_id PK  timestamptz entered_at }
     ALERT_RULES { text id PK  text geofence_id FK  text vehicle_id FK  text event_type  text status }
     GEOFENCE_EVENTS { text id PK  text vehicle_id FK  text geofence_id FK  text event_type  geometry point  timestamptz occurred_at }
-    ALERT_NOTIFICATIONS { text id PK  text event_id FK  text rule_id FK  jsonb payload  timestamptz created_at }
+    ALERT_NOTIFICATIONS { text id PK  text event_id FK  text_array rule_ids  jsonb payload  timestamptz created_at }
 ```
 
 Key idea: **`vehicle_geofence_state` is the source of truth for "where is each vehicle right now"**. Entry/exit detection is a set difference between the old state and the fences covering the new point.

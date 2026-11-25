@@ -11,8 +11,8 @@
 
 | Concern | Choice |
 |---|---|
-| Build | Vite + React 18 + TypeScript (strict) |
-| Routing | `react-router-dom` v6 |
+| Build | Vite + React 19 + TypeScript (strict) |
+| Routing | `react-router` v7 |
 | Server state | `@tanstack/react-query` v5 |
 | Map | `leaflet`, `react-leaflet`, `@geoman-io/leaflet-geoman-free` (polygon drawing), OpenStreetMap tiles |
 | Styling | Tailwind CSS |

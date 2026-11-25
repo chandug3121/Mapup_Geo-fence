@@ -4,7 +4,7 @@
 
 | Concern | Library |
 |---|---|
-| Language | Go 1.23 |
+| Language | Go 1.25 |
 | Router | `github.com/go-chi/chi/v5` |
 | CORS | `github.com/go-chi/cors` |
 | Rate limit | `github.com/go-chi/httprate` |
@@ -181,7 +181,7 @@ CREATE INDEX geofence_events_time_idx     ON geofence_events (occurred_at DESC);
 CREATE TABLE alert_notifications (
     id          TEXT PRIMARY KEY,                -- evt_… (the WebSocket event_id)
     event_id    TEXT NOT NULL REFERENCES geofence_events(id) ON DELETE CASCADE,
-    rule_id     TEXT NOT NULL REFERENCES alert_rules(id) ON DELETE CASCADE,
+    rule_ids    TEXT[] NOT NULL,                 -- every rule that matched this event
     payload     JSONB NOT NULL,                  -- exact message sent over WS
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -253,7 +253,7 @@ Response `201`: `{ id, name, status, time_ns }`
 WebSocket upgrade. Server → client messages only, exactly the spec's format.
 
 ### GET /health
-`{ "status": "ok", "db": "ok", "time_ns": "…" }` — used by Docker healthcheck and the frontend "waking server" check.
+`{ "status": "ok", "database": "ok", "websocket_clients": 2, "time_ns": "…" }` — used by Docker healthcheck and the frontend "waking server" check.
 
 ## 7. Location processing (`tracking.Service.ProcessLocation`)
 
@@ -290,7 +290,7 @@ hub.Publish(messages...)   -- after commit, non-blocking
 
 Why `ST_Covers` not `ST_Contains`: `ST_Contains` is false for points on the boundary. The spec's sample point `(37.7849, -122.4194)` is a vertex of its sample polygon and the expected answer is `inside`.
 
-Dedup: if two rules match the same event (e.g. "all vehicles" + "this vehicle"), one notification per rule is stored, but the hub sends **one message per event** (deduped by event) so the UI doesn't double-toast.
+Dedup: if two rules match the same event (e.g. "all vehicles" + "this vehicle"), one notification is stored with all matching `rule_ids`, and the hub sends **one message per event** so the UI doesn't double-toast.
 
 ## 8. WebSocket hub (`internal/realtime`)
 
@@ -357,7 +357,7 @@ Run: `go test ./...`
 
 ```dockerfile
 # build
-FROM golang:1.23-alpine AS build
+FROM golang:1.25-alpine AS build
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
@@ -372,7 +372,7 @@ USER nonroot
 ENTRYPOINT ["/server"]
 ```
 
-`docker-compose.yml` (repo root): `db` (`postgis/postgis:16-3.4`, healthcheck `pg_isready`, named volume) → `api` (build `./backend`, `depends_on: db: condition: service_healthy`) → optional `web` (frontend via nginx for a one-command local demo).
+`docker-compose.yml` (repo root): `db` (`postgis/postgis:17-3.5`, healthcheck `pg_isready`, named volume) → `api` (build `./backend`, `depends_on: db: condition: service_healthy`) → optional `web` (frontend via nginx for a one-command local demo).
 
 ## 13. Example requests
 
