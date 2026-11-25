@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-brand-50: #eef6ff;
+  --color-brand-100: #d9eaff;
+  --color-brand-500: #2f6fed;
+  --color-brand-600: #1f57d6;
+  --color-brand-700: #1a45ad;
+  --color-ink: #0f172a;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+/* Leaflet sits under app chrome (menus, toasts, modals). */
+.leaflet-container {
+  @apply z-0 font-sans;
+  background: #e5e7eb;
+}
+@media (prefers-color-scheme: dark) {
+  .leaflet-container {
+    background: #1e293b;
+  }
+  .leaflet-tile-pane {
+    filter: brightness(0.75) contrast(1.1) saturate(0.85);
+  }
+}
+.leaflet-picking,
+.leaflet-picking .leaflet-interactive {
+  cursor: crosshair !important;
+}
+
+/* Vehicle marker (rendered as a Leaflet divIcon). */
+.vehicle-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.vehicle-pin__dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background: #0f172a;
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgb(15 23 42 / 0.35);
+}
+.vehicle-pin--selected .vehicle-pin__dot {
+  background: #2f6fed;
+}
+.vehicle-pin--alert .vehicle-pin__dot {
+  background: #dc2626;
+  animation: pin-pulse 1.4s ease-out infinite;
+}
+.vehicle-pin__label {
+  font: 600 11px/1.2 var(--font-mono);
+  background: white;
+  color: #0f172a;
+  padding: 1px 5px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 0.25);
+  white-space: nowrap;
+}
+@keyframes pin-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(220 38 38 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(220 38 38 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vehicle-pin--alert .vehicle-pin__dot {
+    animation: none;
+  }
+}
+
+.route-point {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #f59e0b;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+  color: #0f172a;
+  font: 600 9px/10px var(--font-sans);
+  text-align: center;
+}
+
+/* Vertex handles while drawing a polygon with Leaflet-Geoman. (Geoman's own
+   stylesheet is mostly toolbar icons we don't use, and its inline SVGs break
+   the CSS minifier, so only the rules we need are kept here.) */
+.marker-icon {
+  background-color: #fff;
+  border: 2px solid #2f6fed;
+  border-radius: 50%;
+  margin: -8px 0 0 -8px !important;
+  width: 14px !important;
+  height: 14px !important;
+  outline: 0;
+}
+.marker-icon-middle {
+  opacity: 0.7;
+  margin: -6px 0 0 -6px !important;
+  width: 10px !important;
+  height: 10px !important;
+}
