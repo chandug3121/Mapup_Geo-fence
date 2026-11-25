@@ -33,9 +33,9 @@ jobs:
     env:
       TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/geofence_test?sslmode=disable
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: backend/go.mod
           cache-dependency-path: backend/go.mod
@@ -43,13 +43,11 @@ jobs:
       - name: Resolve modules
         run: go mod tidy
 
-      - name: Upload go.sum
-        uses: actions/upload-artifact@v4
-        with:
-          name: go-modules
-          path: |
-            backend/go.mod
-            backend/go.sum
+      - name: Show resolved modules
+        run: |
+          echo "----- go.mod -----"; cat go.mod
+          echo "----- go.sum -----"; cat go.sum
+          echo "----- end -----"
 
       - name: Vet
         run: go vet ./...
@@ -73,7 +71,7 @@ jobs:
     env:
       HAS_DOCKERHUB: ${{ secrets.DOCKERHUB_TOKEN != '' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Docker Hub secrets missing
         if: env.HAS_DOCKERHUB != 'true'
