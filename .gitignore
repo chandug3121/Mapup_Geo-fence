@@ -1,0 +1,19 @@
+# Go
+/backend/server
+*.test
+*.out
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
