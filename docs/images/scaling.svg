@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 700" width="1700" height="700" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1700" height="700" rx="16" fill="#0d1117"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8b949e"/></marker></defs>
+  <text x="50" y="70" font-size="40" font-weight="700" fill="#f0f6fc">Target architecture for thousands of vehicles</text>
+  <g fill="none" stroke="#8b949e" stroke-width="2.5">
+    <path d="M320 205H356" marker-end="url(#a)"/><path d="M630 205H666" marker-end="url(#a)"/><path d="M940 205H976" marker-end="url(#a)"/><path d="M1250 205H1286" marker-end="url(#a)"/>
+    <path d="M700 262V575H634" marker-end="url(#a)"/>
+    <path d="M978 575H900V264" marker-end="url(#a)"/>
+    <path d="M1330 262V440H1115V516" marker-end="url(#a)"/>
+    <path d="M1500 262V516" marker-end="url(#a)"/>
+  </g>
+  <g font-size="20" fill="#8b949e">
+    <text x="712" y="420">WebSocket</text>
+    <text x="910" y="400">alerts (pub/sub)</text>
+    <text x="1125" y="495">zone state</text>
+    <text x="1512" y="400">events, history</text>
+  </g>
+  <g stroke-width="2.5">
+    <rect x="50" y="150" width="270" height="110" rx="12" fill="#161b22" stroke="#30363d"/>
+    <rect x="360" y="150" width="270" height="110" rx="12" fill="#161b22" stroke="#30363d"/>
+    <rect x="670" y="150" width="270" height="110" rx="12" fill="#1f6feb22" stroke="#2f81f7"/>
+    <rect x="980" y="150" width="270" height="110" rx="12" fill="#bb800926" stroke="#d29922"/>
+    <rect x="1290" y="150" width="270" height="110" rx="12" fill="#bb800926" stroke="#d29922"/>
+    <rect x="360" y="520" width="270" height="110" rx="12" fill="#161b22" stroke="#30363d"/>
+    <rect x="980" y="520" width="270" height="110" rx="12" fill="#1f6feb22" stroke="#2f81f7"/>
+    <rect x="1290" y="520" width="270" height="110" rx="12" fill="#161b22" stroke="#30363d"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="185" y="200" font-size="26" font-weight="700" fill="#f0f6fc">GPS devices</text><text x="185" y="232" font-size="19" fill="#8b949e">HTTPS or MQTT</text>
+    <text x="495" y="200" font-size="26" font-weight="700" fill="#f0f6fc">Load balancer</text><text x="495" y="232" font-size="19" fill="#8b949e">spreads requests</text>
+    <text x="805" y="200" font-size="26" font-weight="700" fill="#f0f6fc">API instances ×N</text><text x="805" y="232" font-size="19" fill="#8b949e">stateless, WebSocket hubs</text>
+    <text x="1115" y="200" font-size="26" font-weight="700" fill="#f0f6fc">Queue</text><text x="1115" y="232" font-size="19" fill="#8b949e">partitioned by vehicle_id</text>
+    <text x="1425" y="200" font-size="26" font-weight="700" fill="#f0f6fc">Workers</text><text x="1425" y="232" font-size="19" fill="#8b949e">geofence R-tree in memory</text>
+    <text x="495" y="570" font-size="26" font-weight="700" fill="#f0f6fc">Browsers</text><text x="495" y="602" font-size="19" fill="#8b949e">dashboard, live alerts</text>
+    <text x="1115" y="570" font-size="26" font-weight="700" fill="#f0f6fc">Redis</text><text x="1115" y="602" font-size="19" fill="#8b949e">current state · pub/sub</text>
+    <text x="1425" y="570" font-size="26" font-weight="700" fill="#f0f6fc">Postgres + PostGIS</text><text x="1425" y="602" font-size="19" fill="#8b949e">events, alerts, history</text>
+  </g>
+</svg>

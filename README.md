@@ -9,7 +9,7 @@ Define virtual boundaries on a map, track vehicles, and get an alert the moment 
 | **Docker image** | [`chandu31210/geofence-backend`](https://hub.docker.com/r/chandu31210/geofence-backend) |
 | **Video walkthrough** | _add video link_ |
 
-Setup, API examples and deployment steps: **[SETUP.md](SETUP.md)**.
+Setup, API examples and deployment steps: **[SETUP.md](SETUP.md)**. Known gaps and the scaling plan: **[docs/roadmap.md](docs/roadmap.md)**.
 
 ## What it does
 
@@ -34,7 +34,7 @@ Setup, API examples and deployment steps: **[SETUP.md](SETUP.md)**.
 ```
 backend/     Go API — cmd/server, internal/{config,db,domain,httpapi,realtime,store,tracking}, migrations
 frontend/    React dashboard — src/{api,components,context,hooks,lib,pages}
-docs/        Architecture, backend and frontend design notes
+docs/        Architecture, backend and frontend design notes, roadmap
 scripts/     seed.sh — demo data
 docker-compose.yml, SETUP.md
 ```
