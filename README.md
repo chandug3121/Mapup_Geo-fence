@@ -4,7 +4,7 @@ Define virtual boundaries on a map, track vehicles, and get an alert the moment 
 
 | | |
 |---|---|
-| **Live dashboard** | _add Vercel URL_ |
+| **Live dashboard** | https://mapup-geo-fence.vercel.app |
 | **API** | https://geofence-api-bcvn.onrender.com (health: [`/health`](https://geofence-api-bcvn.onrender.com/health)) — free tier, first request after idle can take ~1 min |
 | **Docker image** | [`chandu31210/geofence-backend`](https://hub.docker.com/r/chandu31210/geofence-backend) |
 | **Video walkthrough** | _add video link_ |
