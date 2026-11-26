@@ -6,7 +6,7 @@ Define virtual boundaries on a map, track vehicles, and get an alert the moment 
 |---|---|
 | **Live dashboard** | _add Vercel URL_ |
 | **API** | _add Render URL_ |
-| **Docker image** | _add Docker Hub link_ (`<username>/geofence-backend`) |
+| **Docker image** | [`chandu31210/geofence-backend`](https://hub.docker.com/r/chandu31210/geofence-backend) |
 | **Video walkthrough** | _add video link_ |
 
 Setup, API examples and deployment steps: **[SETUP.md](SETUP.md)**.

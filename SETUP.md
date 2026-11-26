@@ -323,6 +323,12 @@ The setup below uses free tiers only: **Neon** (PostgreSQL with PostGIS), **Dock
    - `DOCKERHUB_TOKEN` — the token
 3. Push to `main` (or re-run the *backend* workflow). After tests pass, the image is pushed as `<username>/geofence-backend:latest` and `:<commit-sha>`.
 
+Published image: [`chandu31210/geofence-backend`](https://hub.docker.com/r/chandu31210/geofence-backend)
+
+```bash
+docker pull chandu31210/geofence-backend:latest
+```
+
 Manual alternative:
 
 ```bash
